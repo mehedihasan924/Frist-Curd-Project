@@ -3,33 +3,43 @@ import { useLoaderData } from 'react-router-dom';
 
 const Users = () => {
      const users=useLoaderData()
-
-     const haldleDelete=_id=>{
-            console.log("Delete", _id);
-            fetch(`http://localhost:5000/users/${_id}`,{
-             method:"DELETE"
-            })
-            .then(res=>res.json())
-            .then(data=> {
-                console.log(data);
-            })
+            const user=users
+     const hanldleDelete = user =>{
+        const agree=window.confirm(`Are You sure Deleted This post: ${user.name}`)
+        console.log(agree)
+        console.log("Delete", user._id)
+            // fetch(`http://localhost:5000/users/${data._id}`,{
+            //  method:"DELETE"
+            // })
+            // .then(res=>res.json())
+            // .then(data=> {
+            //     console.log(data);
+            // })
      }
     return (
         <div>
             All Users Data {users.length}
-      {
-        users.map( data=>
-           <div key={data._id} className='bg-slate-400 p-5 text-2xl'>
-                <p > ID: {data._id }   </p> 
-                <p> Name: {data.name } </p>
-                <p> Email: {data.email } </p>
-                <p> Number: {data.number } </p>
-                <button 
-                 onClick={ ()=>haldleDelete(data._id)}
-                 > X</button>
+
+     <div className='grid flex grid-cols-3 gap-4'>
+     {
+        users.map( user=>
+           <div key={user.id} className='bg-slate-400 p-5 text-2xl mb-5 '>  
+                <div className='max-w-full'>
+                    <p > ID: {user._id}   </p> 
+                    <p> Name: {user.name} </p>
+                    <p> Email: {user.email} </p>
+                    <p> Number: {user.number} </p>
+                    <button 
+                    onClick={ ()=>hanldleDelete(user)}
+                    > X</button>
+                </div>
              </div>
              )
+             
       }
+      
+     </div>
+
         </div>
     );
 };

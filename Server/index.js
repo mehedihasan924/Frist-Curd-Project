@@ -27,16 +27,19 @@ async function run() {
     await client.connect();
     // Send a ping to confirm a successful connection
 
+    
+// MongoDB Collecxt Creat 
     // const database = client.db("frist_curd");
     // const userCollection = database.collection("frist_curd_project");
     const userCollection=client.db('frist_curd').collection('frist_curd_project')
-
+// User Data Read
     app.get('/users', async(req,res)=>{
       const cursor=userCollection.find();
       const result= await cursor.toArray();
       res.send(result)
     })
 
+// User Data Post or Creat
     app.post('/users', async (req, res) => {
       const user = req.body;
       console.log(user);
@@ -44,7 +47,7 @@ async function run() {
       console.log({result});
       res.send(result);
     })
-   
+ // User Data Delete 
     app.delete('/users/:id', (req, res)=>{
       const id=req.params.id;
       console('please delete from databasse ', id);
