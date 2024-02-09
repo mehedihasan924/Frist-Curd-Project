@@ -1,6 +1,6 @@
 const express = require("express");
 const cors = require("cors");
-const { MongoClient, ServerApiVersion } = require('mongodb');
+const { MongoClient, ServerApiVersion, ObjectId, } = require('mongodb');
 const app = express()
 const port = process.env.PORT || 5000;
 
@@ -27,7 +27,7 @@ async function run() {
     await client.connect();
     // Send a ping to confirm a successful connection
 
-    
+
 // MongoDB Collecxt Creat 
     // const database = client.db("frist_curd");
     // const userCollection = database.collection("frist_curd_project");
@@ -47,11 +47,19 @@ async function run() {
       console.log({result});
       res.send(result);
     })
+
  // User Data Delete 
-    app.delete('/users/:id', (req, res)=>{
+   app.delete('/users/:id', async(req, res)=>{
       const id=req.params.id;
-      console('please delete from databasse ', id);
-    })
+      console.log("trinig to this id", id);
+    //   const query={_id: ObjectId(id)}
+    //   const result= await userCollection.deleteOne(query);
+    //    console.log(result);
+    //  res.send(result)
+    // Vedio-65-06
+   })
+
+
 
     await client.db("admin").command({ ping: 1 });
     console.log("Pinged your deployment. You successfully connected to MongoDB!");
