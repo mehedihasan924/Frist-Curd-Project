@@ -6,7 +6,7 @@ import { Link } from 'react-router-dom'
 
 function App() {
   
- const [user, setUser]=useState({name:'defalut', email: 'ma@gmail.com'});
+ const [user, setUser]=useState({});
    const handleUser=(event)=>{
       event.preventDefault() ;
       console.log(user);
@@ -48,6 +48,9 @@ function App() {
         <form onSubmit={handleUser} >
           <label> Name: </label>
           <input onBlur={handleInputBlur} type="text" name='name' id='' />
+          <br />
+          <label> Address: </label>
+          <input onBlur={handleInputBlur} type="address" name='address' id='' />
           <br />
            <label> Email: </label>
           <input onBlur={handleInputBlur}  type="email" name='email' id='' />

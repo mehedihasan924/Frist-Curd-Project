@@ -36,8 +36,9 @@ async function run() {
     app.get('/users', async(req,res)=>{
       const query={};
       const cursor=userCollection.find(query);
-      const result= await cursor.toArray();
+      const result= await userCollection.insertOne(user)
       res.send(result)
+      console.log(result);
     })
 
 // User Data Post or Creat
@@ -68,10 +69,6 @@ async function run() {
   }
 }
 run().catch(console.dir);
-
-
-
-
 
 app.get('/', (req, res) => {
   res.send("Smple Curd Is Runing")
