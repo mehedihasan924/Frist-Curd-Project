@@ -6,21 +6,23 @@ import { Link } from 'react-router-dom'
 
 function App() {
   
-  const handleUser=(event)=>{
+ const [user, setUser]=useState({name:'defalut', email: 'ma@gmail.com'});
+   const handleUser=(event)=>{
       event.preventDefault() ;
-        const form=event.target;
-        const name=form.name.value
-        const email=form.email.value;
-        const number=form.number.value;
-        const users={name, email, number}
-      console.log(users);
+      console.log(user);
+        // const form=event.target;
+        // const name=form.name.value
+        // const email=form.email.value;
+        // const number=form.number.value;
+        // const users={name, email, number}
+      // console.log(users);
 
      fetch("http://localhost:5000/users", {
       method: 'POST',
       headers:{
         'content-type':'application/json'
       },
-      body: JSON.stringify(users)
+      body:JSON.stringify(user)
      })
      .then(res=>res.json())
      .then(data=> {
@@ -30,7 +32,13 @@ function App() {
       }
      })
   }
- 
+    const handleInputBlur=event=>{
+      const value=event.target.value;
+      const field= event.target.name;
+      const newUser={...user};
+      newUser[field]=value;
+      setUser(newUser)
+    }
   return (
     <>
       <h1> Simple Curd Operation</h1>
@@ -39,13 +47,10 @@ function App() {
       <div>
         <form onSubmit={handleUser} >
           <label> Name: </label>
-          <input type="text" name='name' id='' />
+          <input onBlur={handleInputBlur} type="text" name='name' id='' />
           <br />
            <label> Email: </label>
-          <input type="email" name='email' id='' />
-          <br />
-          <label> Number: </label>
-          <input type="number" name='number' id='' />
+          <input onBlur={handleInputBlur}  type="email" name='email' id='' />
           <br />
           <input type="submit" value="Add user" />
         </form>

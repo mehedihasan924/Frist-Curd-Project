@@ -19,8 +19,8 @@ const client = new MongoClient(uri, {
     version: ServerApiVersion.v1,
     strict: true,
     deprecationErrors: true,
-  }
-});
+    }
+  });
 async function run() {
   try {
     // Connect the client to the server	(optional starting in v4.7)
@@ -34,7 +34,8 @@ async function run() {
     const userCollection=client.db('frist_curd').collection('frist_curd_project')
 // User Data Read
     app.get('/users', async(req,res)=>{
-      const cursor=userCollection.find();
+      const query={};
+      const cursor=userCollection.find(query);
       const result= await cursor.toArray();
       res.send(result)
     })
@@ -43,23 +44,21 @@ async function run() {
     app.post('/users', async (req, res) => {
       const user = req.body;
       console.log(user);
-      const result = await userCollection.insertOne(user);
-      console.log({result});
-      res.send(result);
+    //   const result = await userCollection.insertOne(user);
+    //   console.log({result});
+    //   res.send(result);
     })
 
  // User Data Delete 
    app.delete('/users/:id', async(req, res)=>{
       const id=req.params.id;
       console.log("trinig to this id", id);
-    //   const query={_id: ObjectId(id)}
-    //   const result= await userCollection.deleteOne(query);
-    //    console.log(result);
-    //  res.send(result)
+      const query={_id: ObjectId(id)}
+      const result= await userCollection.deleteOne(query);
+       console.log(result);
+     res.send(result)
     // Vedio-65-06
    })
-
-
 
     await client.db("admin").command({ ping: 1 });
     console.log("Pinged your deployment. You successfully connected to MongoDB!");
